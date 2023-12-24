@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import NoTask from "./components/NoTask";
+import AddTask from './components/AddTask';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -25,6 +26,14 @@ function App() {
         reminder: false
     },
 ])
+//  Add Task
+const addTask = (task) => {
+  console.log(tasks.length)
+
+  const id = tasks.length + 1  
+  const newTask = {id, ...task}
+  setTasks([...tasks, newTask])
+}
 
 // Delete Task
 const deleteTask = (id) => {
@@ -36,7 +45,7 @@ const toggleReminder = (id) => {
   console.log(id);
     setTasks(
       tasks.map((task) => 
-      task.id == id ? {...task, reminder: !task.reminder} : task
+      task.id === id ? {...task, reminder: !task.reminder} : task
     )
   )
 }
@@ -45,11 +54,13 @@ const toggleReminder = (id) => {
   return (
     <div className="container">
       <Header />
+      <AddTask onAdd = {addTask} />
       {tasks.length > 0 ? (
         <Tasks tasks = {tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
         ) : (
-          <NoTask />
+          <NoTask /> 
         )}
+    
     </div>
   );
 }
