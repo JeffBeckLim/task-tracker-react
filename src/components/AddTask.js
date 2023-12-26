@@ -1,8 +1,11 @@
 import { Button } from '@mui/material'
+import { TextField } from '@mui/material'
+import { Checkbox } from '@mui/material'
+import { FormControlLabel } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
 
-
+const label = 'Reminder'
 
 const AddTask = ({ onAdd }) => {
     const [text , setText] = useState('')
@@ -26,24 +29,19 @@ const onSubmit = (e) => {
   return (
     <div className='row'>
         <form  onSubmit={onSubmit}> 
-            <label htmlFor="addTask">Task</label>
-            <input className='form-control p-2' type="text" name="addTask" placeholder='Add Task' id="addTask" 
-                value={text} onChange={(e) => setText(e.target.value)}
+            <TextField className='w-100' label="Task" variant="outlined"  value={text} onChange={(e) => setText(e.target.value)} />
+            <TextField className='w-100 mt-3' label="Date and Time" variant="outlined"  value={day} onChange={(e) => setDay(e.target.value)} />
+            
+            <FormControlLabel
+                control={<Checkbox />}
+                label="Set Reminder"
+                labelPlacement="top"
+                checked={reminder}
+                value={reminder} onChange={(e) => setReminder(e.currentTarget.checked)}
             />
-            
-            <label htmlFor="addDateTime">Date and Time</label>
-            <input className='form-control p-2' type="text" name="addDateTime" placeholder='Add Task' id="addDateTime" 
-             value={day} onChange={(e) => setDay(e.target.value)}/>
-            
-            <div className='form-check'>
-                <label className='form-check-label' htmlFor="setReminder">Set Reminder</label>
-                <input className='form-check-input p-2' type="checkbox" name="setReminder" id="setReminder" checked={reminder}
-                  value={reminder} onChange={(e) => setReminder(e.currentTarget.checked)}/>
-            </div>
-            <Button className='w-100' variant="contained" style={{backgroundColor: 'black'}}>
-                Click me
+            <Button className='w-100' variant="contained" style={{backgroundColor: 'black', textTransform: 'none'}}  type="submit" value='Save Task'>
+                Save Task
             </Button>
-            <input className='btn btn-dark mt-3 w-100 ' type="submit" value='Save Task'/>
             
         </form>
     </div>
