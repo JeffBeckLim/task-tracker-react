@@ -1,12 +1,18 @@
 import React from "react"
-const Header = ({ title }) => {
+import { Button } from '@mui/material'
+
+const Header = ({ title, onAdd , showAdd }) => {
   return (
     <header className='container row'>
       <div className='col'>
         <h1>{title}</h1>
       </div>
       <div className='col text-end'>
-        <button className='btn btn-dark text-center'>Add</button>
+      
+        <Button onClick={onAdd} variant={showAdd ? ('outlined') : ('contained')} style={{backgroundColor: showAdd ? '' : 'black', textTransform: 'none' ,color: showAdd ? 'black' : '', borderColor: showAdd ? 'black' : ''}}>
+                {showAdd ? ('Close') : ('Add')}
+        </Button>
+   
       </div>
     </header>
   )

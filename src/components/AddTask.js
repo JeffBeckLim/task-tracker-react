@@ -11,12 +11,14 @@ const AddTask = ({ onAdd }) => {
     const [text , setText] = useState('')
     const [day , setDay] = useState('')
     const [reminder  , setReminder] = useState(false)
+    const [error, setError] = useState(false);
 
 const onSubmit = (e) => {
     e.preventDefault()
 
     if(!text){
-        alert('Please add a task')
+        // alert('Please add a task')
+        setError(true);
         return
     }
 
@@ -24,12 +26,13 @@ const onSubmit = (e) => {
     setText('')
     setDay('')
     setReminder(false)
+    setError(false)
 }   
 
   return (
     <div className='row'>
         <form  onSubmit={onSubmit}> 
-            <TextField className='w-100' label="Task" variant="outlined"  value={text} onChange={(e) => setText(e.target.value)} />
+            <TextField error={error} className='w-100' label="Task" variant="outlined"  value={text} onChange={(e) => setText(e.target.value)}  helperText="Please add a task."/>
             <TextField className='w-100 mt-3' label="Date and Time" variant="outlined"  value={day} onChange={(e) => setDay(e.target.value)} />
             
             <FormControlLabel
